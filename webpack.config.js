@@ -14,66 +14,46 @@ module.exports = {
     contentBase: './dist'
   },
   plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      title: 'template2',
-      template: './src/index.html',
-      inject: 'body'
-    }),
-    new Dotenv(),
-  ],
-  module:{
-    rules:[
+      new CleanWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        title: 'template2',
+        template: './src/index.html',
+        inject: 'body'
+      }),
+      new Dotenv(),
+    ],
+    module:{
+      rules:[
+        {
+          test:/\.css$/,
+          use:[
+            'style-loader',
+            'css-loader'
+          ]
+        },
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          loader:"eslint-loader"
+        },
+        {
+    test: /\.(gif|png|jpe?g)$/,
+    use: [
       {
-        test:/\.css$/,
-        use:[
-          'style-loader',
-          'css-loader'
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]',
+          outputPath: 'assets/images/'
+          }
+        }
+       ]
+    },
+    {
+      test:/\.html$/,
+      use: [
+        'html-loader'
         ]
-      },
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader:"eslint-loader"
-      },
-      {
-  test: /\.(gif|png|jpe?g)$/,
-  use: [
-    {
-      loader: 'file-loader',
-      options: {
-        name: '[name].[ext]',
-        outputPath: 'assets/images/'
       }
-    }
-  ]
-},
-
-{
-  test:/\.html$/,
-  use: [
-    'html-loader'
-  ]
-},
-{
-  test: /\.(gif|png|jpe?g)$/,
-  use: [
-    {
-      loader: 'file-loader',
-      options: {
-        name: '[name].[ext]',
-        outputPath: 'assets/images/'
-      }
-    }
-  ]
-},
-
-{
-  test:/\.html$/,
-  use: [
-    'html-loader'
-  ]
-}
     ]
   }
 };
